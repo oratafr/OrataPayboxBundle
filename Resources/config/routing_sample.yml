@@ -1,0 +1,9 @@
+orata_paybox_sample_call:
+    path:     /
+    defaults: { _controller: OrataPayboxBundle:Sample:index }
+
+orata_paybox_sample_return:
+    path:     /payment/return/{status}
+    defaults: { _controller: OrataPayboxBundle:Sample:return, status: error }
+    requirements:
+        status: success|canceled|denied

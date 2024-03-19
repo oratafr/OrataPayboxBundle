@@ -1,0 +1,9 @@
+vendor
+coverage
+composer.lock
+composer.phar
+phpunit.xml
+.phpunit.result.cache
+.buildpath
+.project
+.settings

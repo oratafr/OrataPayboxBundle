@@ -1,0 +1,4 @@
+orata_paybox_ipn:
+    path:     /payment-ipn/{time}
+    defaults: { _controller: OrataPayboxBundle:Default:ipn }
+    methods:  [GET, POST]

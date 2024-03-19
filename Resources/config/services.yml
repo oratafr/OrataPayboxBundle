@@ -1,0 +1,33 @@
+parameters:
+    orata_paybox.request_handler.class:              'Orata\Bundle\PayboxBundle\Paybox\System\Base\Request'
+    orata_paybox.request_cancellation_handler.class: 'Orata\Bundle\PayboxBundle\Paybox\System\Cancellation\Request'
+    orata_paybox.response_handler.class:             'Orata\Bundle\PayboxBundle\Paybox\System\Base\Response'
+    orata_paybox.direc_plus.request_handler:         'Orata\Bundle\PayboxBundle\Paybox\DirectPlus\Request'
+
+services:
+    orata_paybox.request_handler:
+        class:     '%orata_paybox.request_handler.class%'
+        public:    true
+        arguments: ['%orata_paybox.parameters%', '%orata_paybox.servers%', '@form.factory']
+
+    orata_paybox.request_cancellation_handler:
+        class:     '%orata_paybox.request_cancellation_handler.class%'
+        public:    true
+        arguments: ['%orata_paybox.parameters%', '%orata_paybox.servers%', '@orata_paybox.transport']
+
+    orata_paybox.response_handler:
+        class:     '%orata_paybox.response_handler.class%'
+        public:    true
+        arguments: ['@request_stack', '@logger', '@event_dispatcher', '%orata_paybox.parameters%']
+        tags:
+            - { name: monolog.logger, channel: payment }
+
+    orata_paybox.direc_plus.request_handler:
+        class:     '%orata_paybox.direc_plus.request_handler%'
+        public:    true
+        arguments: ['%orata_paybox.parameters%', '%orata_paybox.servers%', '@logger', '@event_dispatcher', '@orata_paybox.transport']
+        tags:
+            - { name: monolog.logger, channel: payment }
+
+    orata_paybox.transport:
+        class:     '%orata_paybox.transport.class%'

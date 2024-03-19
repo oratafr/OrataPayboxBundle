@@ -1,0 +1,9 @@
+parameters:
+    orata_paybox.sample_response_listener.class: Orata\Bundle\PayboxBundle\Listener\SampleIpnListener
+
+services:
+    orata_paybox.sample_response_listener:
+        class:     %orata_paybox.sample_response_listener.class%
+        arguments: [ %kernel.root_dir%, @filesystem ]
+        tags:
+            - { name: kernel.event_listener, event: paybox.ipn_response, method: onPayboxIpnResponse }
