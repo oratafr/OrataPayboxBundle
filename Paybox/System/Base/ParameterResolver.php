@@ -62,6 +62,8 @@ class ParameterResolver extends AbstractParameterResolver
         'PBX_TYPECARTE',
         'PBX_TYPEPAIEMENT',
         'PBX_ATTENTE',
+        'PBX_SHOPPINGCART',
+        'PBX_BILLING',
     );
 
     /**
