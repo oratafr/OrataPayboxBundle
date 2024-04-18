@@ -17,8 +17,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('orata_paybox');
+        if (PHP_VERSION_ID < 70000) {
+            $treeBuilder = new TreeBuilder();
+            $rootNode = $treeBuilder->root('orata_paybox');
+        } else {
+            $treeBuilder = new TreeBuilder('orata_paybox');
+            $rootNode = $treeBuilder->getRootNode();
+        }
 
         $rootNode
             ->addDefaultsIfNotSet()
