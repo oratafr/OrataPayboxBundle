@@ -103,6 +103,15 @@ abstract class AbstractRequest implements RequestInterface
         if (isset($this->parameters['PBX_HMAC'])) {
             unset($this->parameters['PBX_HMAC']);
         }
+        // XML content formating (remove new lines)
+        foreach (['PBX_SHOPPINGCART', 'PBX_BILLING'] as $name) {
+            if (isset($this->parameters[$name])) {
+                if (!@simplexml_load_string($this->parameters[$name])) {
+                    throw new RuntimeException("Paybox \"{$name}\" contains invalid XML.");
+                }
+                $this->parameters[$name] = str_replace(PHP_EOL, '', $this->parameters[$name]);
+            }
+        }
 
         ksort($this->parameters);
 
